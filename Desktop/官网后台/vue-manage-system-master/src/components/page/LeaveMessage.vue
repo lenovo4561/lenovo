@@ -20,26 +20,26 @@
                 <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
                 <el-table-column align="center" prop="name" label="姓名"></el-table-column>
                 <el-table-column align="center" prop="phone" label="手机号"></el-table-column>
-                <el-table-column align="center" prop="content" label="内容"></el-table-column>
+                <el-table-column align="center" prop="content" label="内容">
+                    <template slot-scope="scope">
+                        <div class="flag_">{{ scope.row.content }}</div>
+                    </template>
+                </el-table-column>
                 <el-table-column align="center" prop="created_at" label="创建时间">
                     <template slot-scope="scope">
                         {{ scope.row.created_at | timestampToTime(scope.row.created_at) }}
                     </template>
                 </el-table-column>
-                <el-table-column align="center" prop="updated_at" label="更新时间">
-                    <template slot-scope="scope">
-                        {{ scope.row.updated_at | timestampToTime(scope.row.updated_at) }}
-                    </template>
-                </el-table-column>
-                <el-table-column label="操作" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                                type="warning"
-                                @click="Edit(scope.row)"
-                        >编辑</el-button>
-                    </template>
-                </el-table-column>
             </el-table>
+            <el-pagination
+                    :hide-on-single-page="total <= 20"
+                    style="margin-top: 20px"
+                    background
+                    layout="prev, pager, next"
+                    :page-size="20"
+                    @current-change="handleCurrentChange"
+                    :total="total">
+            </el-pagination>
         </div>
     </div>
 </template>
@@ -50,6 +50,9 @@
         name: 'HomeModuleOne',
         data() {
             return {
+                total:undefined,
+                currentPage:1,
+                pageSize:20,
                 tableData: [],
             };
 
@@ -58,9 +61,19 @@
 
         },
         methods: {
+            handleCurrentChange(val) {
+                this.currentPage = val
+                this.getMessageBoard()
+            },
             getData() {
-                getMessageBoard().then(res => {
+                var that = this
+                getMessageBoard({
+                    currentPage: that.currentPage,
+                    pageSize : that.pageSize
+                }).then(res => {
+                    console.log(res.data)
                     this.tableData = res.data.data;
+                    this.total = Number(res.data.total)
                 });
             },
             Edit(data){
@@ -99,6 +112,14 @@
 </script>
 
 <style scoped>
+    .flag_ {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
     .handle-box {
         margin-bottom: 20px;
     }

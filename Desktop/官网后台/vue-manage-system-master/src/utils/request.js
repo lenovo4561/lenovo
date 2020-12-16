@@ -1,7 +1,12 @@
 import axios from 'axios';
 import { MessageBox, Message } from 'element-ui'
 import router from '../router/index'
+let baseURL = 'http://192.168.124.6:8989/';
+if (process.env.NODE_ENV === 'production') {
+    baseURL = 'http://47.107.153.105:8989/';
+}
 const service = axios.create({
+    baseURL,
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
     // easy-mock服务挂了，暂时不使用了
     // baseURL: 'https://www.easy-mock.com/mock/592501a391470c0ac1fab128',

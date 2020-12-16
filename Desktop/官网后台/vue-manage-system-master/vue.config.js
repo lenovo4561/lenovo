@@ -1,5 +1,5 @@
 module.exports = {
-    assetsDir: 'static',
+    assetsDir: 'mhwStatic',
     productionSourceMap: false,
     devServer: {
         proxy: {

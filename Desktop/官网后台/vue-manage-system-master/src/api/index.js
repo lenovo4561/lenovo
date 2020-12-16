@@ -249,7 +249,8 @@ export const editAboutModuleTwo = query => {  //关于模块二修改
 export const getMessageBoard = query => {  //获取留言列表
     return request({
         url: `/messageboard`,
-        method: 'get'
+        method: 'get',
+        params: query
     });
 };
 
