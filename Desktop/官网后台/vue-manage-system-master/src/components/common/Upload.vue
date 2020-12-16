@@ -2,6 +2,7 @@
     <div>
         <div class="container" style="margin-bottom: 50px">
             <el-upload
+                    :headers="importHeaders"
                     :on-success='UploadOK'
                     :on-error='UploadError'
                     :limit='1'
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-export default {
+    export default {
     name: 'upload',
     props: {
         fileList: {
@@ -29,6 +30,7 @@ export default {
     },
     data() {
         return {
+            importHeaders: {Authorization: `Bearer ${localStorage.token}`},
             // fileList: [{name: '', url: ''}],
             articleData:{
                 title: "",
