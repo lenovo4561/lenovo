@@ -8,7 +8,6 @@
             </el-breadcrumb>
         </div>
         <div class="container">
-            <el-button type="success" style="margin: 10px 0" @click="add_column">添加</el-button>
             <el-table
                     :data="tableData"
                     border
