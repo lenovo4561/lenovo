@@ -109,6 +109,36 @@ export default {
                                 },
                             ]
                         },
+                        {
+                            index: '3-3',
+                            title: '产品分类模块',
+                            subs: [
+                                {
+                                    index: 'ProductModuleOne',
+                                    title: '模块一'
+                                }
+                            ]
+                        },
+                        {
+                            index: '3-4',
+                            title: '风格展示模块',
+                            subs: [
+                                {
+                                    index: 'StyleModuleOne',
+                                    title: '模块一'
+                                }
+                            ]
+                        },
+                        {
+                            index: '3-5',
+                            title: '企业动态模块',
+                            subs: [
+                                {
+                                    index: 'CompanyModuleOne',
+                                    title: '模块一'
+                                }
+                            ]
+                        },
                     ]
                 },
                 {

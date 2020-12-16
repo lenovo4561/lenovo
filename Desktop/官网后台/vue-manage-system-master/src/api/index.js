@@ -268,5 +268,73 @@ export const editcontactus = query => {  //修改联系我们
         data:query
     });
 };
+export const getProductModuleOne = query => {  //产品分类模块
+    return request({
+        url: `/product/module1`,
+        method: 'get'
+    });
+};
 
+export const editProductModuleOne = query => {  //修改产品分类模块
+    return request({
+        url: `/product/module1`,
+        method: 'put',
+        data:query
+    });
+};
+
+export const addProductModuleOne = query => {  //添加产品分类模块
+    return request({
+        url: `/product/module1`,
+        method: 'post',
+        data:query
+    });
+};
+
+
+export const getStyleModuleOne = query => {  //风格展示模块
+    return request({
+        url: `/style/module1`,
+        method: 'get'
+    });
+};
+
+export const editStyleModuleOne = query => {  //风格展示模块
+    return request({
+        url: `/style/module1`,
+        method: 'put',
+        data:query
+    });
+};
+
+export const addStyleModuleOne = query => {  //风格展示模块
+    return request({
+        url: `/style/module1`,
+        method: 'post',
+        data:query
+    });
+};
+
+export const getEnterprisetrendsModuleOne = query => {  //企业动态模块
+    return request({
+        url: `/enterprisetrends/module1`,
+        method: 'get'
+    });
+};
+
+export const editEnterprisetrendsModuleOne = query => {  //企业动态模块
+    return request({
+        url: `/enterprisetrends/module1`,
+        method: 'put',
+        data:query
+    });
+};
+
+export const addEnterprisetrendsModuleOne = query => {  //企业动态模块
+    return request({
+        url: `/enterprisetrends/module1`,
+        method: 'post',
+        data:query
+    });
+};
 

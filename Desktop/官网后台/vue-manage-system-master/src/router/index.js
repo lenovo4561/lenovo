@@ -79,6 +79,21 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/ContactUs.vue'),
                     meta: { title: '联系我们' }
                 },
+                {
+                    path: '/ProductModuleOne',
+                    component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/ProductModuleOne.vue'),
+                    meta: { title: '产品分类' }
+                },
+                {
+                    path: '/StyleModuleOne',
+                    component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/StyleModuleOne.vue'),
+                    meta: { title: '风格展示' }
+                },
+                {
+                    path: '/CompanyModuleOne',
+                    component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/CompanyModuleOne.vue'),
+                    meta: { title: '公司动态' }
+                },
             ],
         },
         {
