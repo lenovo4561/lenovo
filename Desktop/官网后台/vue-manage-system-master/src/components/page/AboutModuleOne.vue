@@ -9,15 +9,16 @@
         </div>
         <div class="container">
             <div class="form-box">
+                <p style="font-size:12px;line-height:30px;color:red;">Tips : 建议图片大小: 1920px * 313px</p>
                 <UploadComponent :fileList="fileList" @PicID="PicID"/>
                 <el-form ref="form" :model="form" label-width="80px" style="margin-top: 50px">
-                    <el-form-item label="title">
+                    <el-form-item label="标题" label-width="100px">
                         <el-input v-model="form.title"></el-input>
                     </el-form-item>
-                    <el-form-item label="alt">
+                    <el-form-item label="图片关键词" label-width="100px">
                         <el-input v-model="form.alt"></el-input>
                     </el-form-item>
-                    <el-form-item label="desc">
+                    <el-form-item label="描述" label-width="100px">
                         <el-input v-model="form.desc"></el-input>
                     </el-form-item>
                     <el-form-item>

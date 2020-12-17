@@ -50,13 +50,19 @@ export default {
                         pwd : window.btoa(this.param.password)
                     }
                     Login(data).then(res => {
-                        if(res.code == 0){
-                            this.$message.success('登录成功');
-                            localStorage.setItem('token', res.data.token);
-                            this.$router.push('/');
+                        console.log(res)
+                        if(res == undefined){
+                            this.$message.error('账号或密码错误');
                         }else{
-                            this.$message.error('登录失败');
+                            if(res.code == 0){
+                                this.$message.success('登录成功');
+                                localStorage.setItem('token', res.data.token);
+                                this.$router.push('/');
+                            }else{
+                                this.$message.error('登录失败');
+                            }
                         }
+
                     });
                 } else {
                     this.$message.error('请输入账号和密码');

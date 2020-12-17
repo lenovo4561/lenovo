@@ -57,7 +57,7 @@ export default {
             collapse: false,
             items: [
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-lx-home',
                     index: 'column',
                     title: '栏目配置'
                 },
@@ -77,7 +77,7 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-calendar',
+                    icon: 'el-icon-lx-copy',
                     index: '5',
                     title: '模块配置',
                     subs: [
@@ -142,12 +142,12 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-c-scale-to-original',
                     index: 'ContactUs',
                     title: '联系我们'
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-s-comment',
                     index: 'LeaveMessage',
                     title: '留言列表'
                 },

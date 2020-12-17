@@ -186,7 +186,7 @@ export const addModuleOne = query => {  //添加首页模块一
 
 export const editModuleOne = query => {  //修改首页模块一
     return request({
-        url: `/home/module1/${query.id}`,
+        url: `/home/module1/${query.id}?id=${query.id}`,
         method: 'put',
         data: query
     });
@@ -335,6 +335,14 @@ export const addEnterprisetrendsModuleOne = query => {  //企业动态模块
     return request({
         url: `/enterprisetrends/module1`,
         method: 'post',
+        data:query
+    });
+};
+
+export const changeStatus = query => {  //留言状态
+    return request({
+        url: `/messageboard/${query.id}?id=${query.id}`,
+        method: 'put',
         data:query
     });
 };

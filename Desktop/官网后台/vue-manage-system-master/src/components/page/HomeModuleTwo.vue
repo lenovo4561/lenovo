@@ -11,19 +11,19 @@
             <div class="form-box">
                 <UploadComponent :fileList="fileList" @PicID="PicID"/>
                 <el-form ref="form" :model="form" label-width="80px" style="margin-top: 50px">
-                    <el-form-item label="文章标题" >
+                    <el-form-item label="文章标题" label-width="100px">
                         <div style="display: flex;justify-content: space-between">
                             <el-input v-html="form.title" disabled></el-input>
                             <el-button style="height: 32px" type="primary" @click="edit('title')">编辑</el-button>
                         </div>
                     </el-form-item>
-                    <el-form-item label="文章内容">
+                    <el-form-item label="文章内容" label-width="100px">
                         <div style="display: flex;justify-content: space-between">
                             <el-input v-html="form.desc" disabled></el-input>
                             <el-button style="height: 32px" type="primary" @click="edit('content')">编辑</el-button>
                         </div>
                     </el-form-item>
-                    <el-form-item label="alt">
+                    <el-form-item label="图片关键词" label-width="100px">
                         <el-input v-model="form.alt"></el-input>
                     </el-form-item>
                     <el-form-item>

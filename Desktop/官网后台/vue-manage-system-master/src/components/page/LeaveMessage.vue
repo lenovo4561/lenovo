@@ -25,9 +25,29 @@
                         <div class="flag_">{{ scope.row.content }}</div>
                     </template>
                 </el-table-column>
+<!--                <el-table-column align="center" prop="content" label="内容">-->
+<!--                    <template slot-scope="scope">-->
+<!--                        <el-collapse v-model="scope.row.content" @change="handleChange">-->
+<!--                            <el-collapse-item title="一致性 Consistency" name="1">-->
+<!--                                <div> {{ scope.row.content }}</div>-->
+<!--                            </el-collapse-item>-->
+<!--                        </el-collapse>-->
+<!--                    </template>-->
+<!--                </el-table-column>-->
+
                 <el-table-column align="center" prop="created_at" label="创建时间">
                     <template slot-scope="scope">
                         {{ scope.row.created_at | timestampToTime(scope.row.created_at) }}
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" prop="remarks" label="备注">
+                    <template slot-scope="scope">
+                        <div class="flag_">{{ scope.row.remarks }}</div>
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" prop="is_checked" label="是否已读">
+                    <template slot-scope="scope">
+                        <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.is_checked" @change='changeStatus($event,scope.row,scope.$index)' active-color="#13ce66"></el-switch>
                     </template>
                 </el-table-column>
             </el-table>
@@ -41,19 +61,42 @@
                     :total="total">
             </el-pagination>
         </div>
+        <!-- 已读信息 -->
+        <el-dialog title="备注" :show-close="false" :visible.sync="editVisible" width="30%">
+            <el-input
+                    type="textarea"
+                    placeholder="请输入内容"
+                    v-model="remarks"
+                    show-word-limit
+            >
+            </el-input>
+            <span slot="footer" class="dialog-footer">
+                 <el-button type="danger" @click="changeData_del">取 消</el-button>
+                <el-button type="primary" @click="saveData">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-    import { getMessageBoard,addModuleOne } from '../../api/index';
+    import { getMessageBoard,addModuleOne,changeStatus } from '../../api/index';
     export default {
         name: 'HomeModuleOne',
         data() {
             return {
-                total:undefined,
-                currentPage:1,
-                pageSize:20,
+                remarks:'',
+                editVisible:false,
+                Data_del:false,
+                textarea: '',
+                total: undefined,
+                currentPage: 1,
+                pageSize: 20,
                 tableData: [],
+                data:{
+                    id: '',
+                    is_checked:'',
+                    remarks:''
+                }
             };
 
         },
@@ -61,6 +104,34 @@
 
         },
         methods: {
+            handleChange() {
+
+            },
+            changeData_del() {
+                this.remarks = ''
+                this.changeData()
+            },
+            saveData() {
+                this.changeData()
+            },
+            changeData() {
+                this.editVisible = false
+                const id = Number(this.data.id)
+                this.data.id = id
+                changeStatus(this.data).then(res => {
+                    if(res.code == 0){
+                        this.$message.success(`修改成功`);
+                    }else{
+                        this.$message.error(`修改失败`);
+                    }
+                });
+            },
+            changeStatus($event,data,index) {
+                this.editVisible = true,
+                this.data.id = Number(data.id),
+                this.data.is_checked = $event == true ? 1 : 0
+                this.remarks = data.remarks
+            },
             handleCurrentChange(val) {
                 this.currentPage = val
                 this.getMessageBoard()
@@ -69,17 +140,17 @@
                 var that = this
                 getMessageBoard({
                     currentPage: that.currentPage,
-                    pageSize : that.pageSize
+                    pageSize: that.pageSize
                 }).then(res => {
                     console.log(res.data)
                     this.tableData = res.data.data;
                     this.total = Number(res.data.total)
                 });
             },
-            Edit(data){
+            Edit(data) {
 
             },
-            add_column(){
+            add_column() {
                 this.$router.push({
                     path: '/EditingModuleOne'
                 })
@@ -89,26 +160,28 @@
             this.getData()
         },
         filters: {
-            timestampToTime (timestamp) {
-                if(!timestamp){return null}
+            timestampToTime(timestamp) {
+                if (!timestamp) {
+                    return null
+                }
                 var date = new Date(timestamp);
                 var Y = date.getFullYear() + '-';
-                var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-                var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
-                var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
-                var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
-                var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
-                var strDate = Y+M+D+h+m+s;
+                var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+                var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+                var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+                var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+                var strDate = Y + M + D + h + m + s;
                 return strDate;
             },
-            filterValue (v) {
-                return  v == 1? '是' : '否';
+            filterValue(v) {
+                return v == 1 ? '是' : '否';
             },
-            contentType(i){
-                return  i == 1? '普通文章' : '图片集';
+            contentType(i) {
+                return i == 1 ? '普通文章' : '图片集';
             }
-        },
-    };
+        }
+    }
 </script>
 
 <style scoped>

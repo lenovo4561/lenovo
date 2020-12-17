@@ -33,6 +33,11 @@
                         ></el-image>
                     </template>
                 </el-table-column>
+                <el-table-column align="center" prop="is_checked" label="开启状态">
+                    <template slot-scope="scope">
+                        <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.is_show" @change='changeStatus($event,scope.row,scope.$index)' active-color="#13ce66"></el-switch>
+                    </template>
+                </el-table-column>
                 <el-table-column align="center" prop="created_at" label="创建时间">
                     <template slot-scope="scope">
                         {{ scope.row.created_at | timestampToTime(scope.row.created_at) }}
@@ -58,12 +63,13 @@
 </template>
 
 <script>
-    import { getModuleOne,addModuleOne } from '../../api/index';
+    import { getModuleOne,addModuleOne,editModuleOne } from '../../api/index';
     export default {
         name: 'HomeModuleOne',
         data() {
             return {
                 tableData: [],
+                data:{}
             };
 
         },
@@ -71,6 +77,18 @@
 
         },
         methods: {
+            changeStatus($event,data,index) {
+                this.data = {
+                    id:Number(data.id),
+                    is_show: $event == true ? 1 : 0
+                }
+                editModuleOne(this.data).then(res => {
+                    if(res.code == 0){
+                        this.$message.success(`修改成功`);
+                    }
+                });
+
+            },
             getData() {
                 getModuleOne().then(res => {
                     this.tableData = res.data.data;

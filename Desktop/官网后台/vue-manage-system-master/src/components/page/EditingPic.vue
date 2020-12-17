@@ -143,6 +143,9 @@ export default {
             this.proData = ''
         },
         edit(data) {
+            if(data == 'title'){
+                this.contentData = this.form.title;
+            }
             this.editVisible = true
             this.proData = data
         },

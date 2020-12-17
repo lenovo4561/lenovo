@@ -1,7 +1,7 @@
 <template>
     <div class="tags" v-if="showTags">
         <ul>
-            <li class="tags-li" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">
+            <li class="tags-li" v-for="(item,index) in tagsList" :class="{'active': isActive(item.title)}" :key="index">
                 <router-link :to="item.path" class="tags-li-title">
                     {{item.title}}
                 </router-link>
@@ -32,7 +32,8 @@
         },
         methods: {
             isActive(path) {
-                return path === this.$route.fullPath;
+                // return path === this.$route.fullPath;
+                return path === this.$route.meta.title;
             },
             // 关闭单个标签
             closeTags(index) {
@@ -58,8 +59,13 @@
             },
             // 设置标签
             setTags(route){
+                console.log(11,route)
+                console.log(22,this.tagsList)
+                // const isExist = this.tagsList.some(item => {
+                //     return item.path === route.fullPath;
+                // })
                 const isExist = this.tagsList.some(item => {
-                    return item.path === route.fullPath;
+                    return item.title === route.meta.title;
                 })
                 if(!isExist){
                     if(this.tagsList.length >= 8){

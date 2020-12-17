@@ -171,13 +171,7 @@ export default {
             return value;
         },
         zenze(v) {
-            var str;
-            str = v.replace(/\<[^>]*\>(([^<])*)/g, function() {
-                let mark = "";
-                return arguments[1];
-            });
-            str = str.substring(0, str.length - 1);
-            return str
+            return v.replace(/<[^>]*>|<\/[^>]*>/gm, "");
         }
     },
 };

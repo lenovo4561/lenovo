@@ -9,6 +9,7 @@
         </div>
         <div class="container">
             <div class="form-box">
+                <p style="font-size:12px;line-height:30px;color:red;">Tips : 建议图片大小: 225px * 130px</p>
                 <UploadComponent :fileList="fileList" @PicID="PicID"/>
                 <el-form ref="form" :model="form" label-width="80px" style="margin-top: 50px">
                     <el-form-item label="文章标题" >
@@ -115,6 +116,11 @@ export default {
             this.proData = ''
         },
         edit(data) {
+            if(data == 'title'){
+                this.contentData = this.form.title;
+            }else{
+                this.contentData = this.form.content;
+            }
             this.editVisible = true
             this.proData = data
         },
