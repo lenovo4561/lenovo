@@ -63,6 +63,15 @@
                 </el-table-column>
             </el-table>
         </div>
+        <el-pagination
+                :hide-on-single-page="total <= 20"
+                style="margin-top: 20px"
+                background
+                layout="prev, pager, next"
+                :page-size="20"
+                @current-change="handleCurrentChange"
+                :total="total">
+        </el-pagination>
     </div>
 </template>
 
@@ -72,6 +81,9 @@ export default {
     name: 'AticleEditing',
     data() {
         return {
+            total: undefined,
+            currentPage: 1,
+            pageSize: 20,
             id:'',
             tableData: [],
             editVisible: false,
@@ -83,6 +95,10 @@ export default {
 
     },
     methods: {
+        handleCurrentChange(val) {
+            this.currentPage = val
+            this.getData()
+        },
         add_article(){
           this.$router.push({
               path:'/EditingArticle',
@@ -93,9 +109,13 @@ export default {
             this.editVisible = false
         },
         getData() {
-            getAllArticle().then(res => {
+            getAllArticle({
+                currentPage:this.currentPage,
+                pageSize: this.pageSize,
+            }).then(res => {
                 console.log(res);
                 this.tableData = res.data.data;
+                this.total = res.data.total
             });
         },
         // 编辑操作

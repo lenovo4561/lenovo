@@ -134,7 +134,7 @@
             },
             handleCurrentChange(val) {
                 this.currentPage = val
-                this.getMessageBoard()
+                this.getData()
             },
             getData() {
                 var that = this

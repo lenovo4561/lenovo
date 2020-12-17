@@ -65,6 +65,15 @@
                 </el-table-column>
             </el-table>
         </div>
+        <el-pagination
+                :hide-on-single-page="total <= 20"
+                style="margin-top: 20px"
+                background
+                layout="prev, pager, next"
+                :page-size="20"
+                @current-change="handleCurrentChange"
+                :total="total">
+        </el-pagination>
     </div>
 </template>
 
@@ -74,6 +83,9 @@ export default {
     name: 'PicEditing',
     data() {
         return {
+            total:undefined,
+            currentPage: 1,
+            pageSize: 20,
             id:'',
             tableData: [],
             delList: [],
@@ -102,6 +114,10 @@ export default {
 
     },
     methods: {
+        handleCurrentChange(val) {
+            this.currentPage = val
+            this.getData()
+        },
         add_Pic(){
             this.$router.push({
                 path:'/EditingPic',
@@ -116,9 +132,13 @@ export default {
             this.formData = new FormData()
         },
         getData() {
-            getAllPic().then(res => {
+            getAllPic({
+                currentPage:this.currentPage,
+                pageSize: this.pageSize,
+            }).then(res => {
                 console.log(res);
                 this.tableData = res.data.data;
+                this.total = res.data.total
             });
         },
         // 编辑操作

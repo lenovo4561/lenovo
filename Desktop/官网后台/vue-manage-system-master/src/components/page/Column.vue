@@ -31,6 +31,11 @@
                         {{ scope.row.updated_at | timestampToTime(scope.row.updated_at) }}
                     </template>
                 </el-table-column>
+                <el-table-column align="center" prop="is_show" label="是否开启">
+                    <template slot-scope="scope">
+                        <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.is_show" @change='changeStatus($event,scope.row,scope.$index)' active-color="#13ce66"></el-switch>
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button
@@ -253,6 +258,33 @@
             this.getData();
         },
         methods: {
+            changeStatus($event,data,index) {
+                let id = Number(data.id)
+                let is_checked = $event == true ? 1 : 0
+                let DATA = {
+                    uploadId:id,
+                    is_show:is_checked
+                }
+                if(!data.class_info){
+                    editColumn(DATA).then(res => {
+                        if(res.code == 0) {
+                            this.$message.success(`修改成功`);
+                        }else{
+                            this.$message.error(`修改失败`);
+                        }
+                    })
+                }else{
+                    editChildren(DATA).then(res => {
+                        if(res.code == 0) {
+                            this.$message.success(`修改成功`);
+                        }else{
+                            this.$message.error(`修改失败`);
+                        }
+                    })
+                }
+
+            },
+
             addChildren(item) {
                 this.editVisible2 = true
                 this.childrenformData.parentId = item.id

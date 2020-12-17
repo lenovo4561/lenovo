@@ -65,7 +65,8 @@ export const getAllColumn = query => {  //获取所有分类子分类
 export const getAllArticle = query => {  //获取所有文章
     return request({
         url: `/articletype`,
-        method: 'get'
+        method: 'get',
+        params: query,
     });
 };
 
@@ -141,7 +142,8 @@ export const editChildren = query => {  //编辑子类
 export const getAllPic = query => {  //获取所有图片
     return request({
         url: `/imgtype`,
-        method: 'get'
+        method: 'get',
+        params: query
     });
 };
 
