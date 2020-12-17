@@ -66,7 +66,8 @@
             </el-table>
         </div>
         <el-pagination
-                :hide-on-single-page="total <= 20"
+                v-if="total > 20"
+                :hide-on-single-page="total < 20"
                 style="margin-top: 20px"
                 background
                 layout="prev, pager, next"
@@ -191,7 +192,7 @@ export default {
             return value;
         },
         zenze(v) {
-            return v.replace(/<[^>]*>|<\/[^>]*>/gm, "");
+            return v.replace(/<[^>]*>|<\/[^>]*>/gm, "").replace(/&nbsp;/gm, "");
         }
     },
 };

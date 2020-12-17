@@ -87,11 +87,11 @@ export default {
                             subs: [
                                 {
                                     index: 'HomeModuleOne',
-                                    title: '模块一'
+                                    title: '轮播图配置'
                                 },
                                 {
                                     index: 'HomeModuleTwo',
-                                    title: '模块二'
+                                    title: '内容配置'
                                 },
                             ]
                         },
@@ -101,11 +101,11 @@ export default {
                             subs: [
                                 {
                                     index: 'AboutModuleOne',
-                                    title: '模块一'
+                                    title: 'Banner图配置'
                                 },
                                 {
                                     index: 'AboutModuleTwo',
-                                    title: '模块二'
+                                    title: '内容配置'
                                 },
                             ]
                         },
@@ -115,7 +115,7 @@ export default {
                             subs: [
                                 {
                                     index: 'ProductModuleOne',
-                                    title: '模块一'
+                                    title: 'Banner图配置'
                                 }
                             ]
                         },
@@ -125,7 +125,7 @@ export default {
                             subs: [
                                 {
                                     index: 'StyleModuleOne',
-                                    title: '模块一'
+                                    title: 'Banner图配置'
                                 }
                             ]
                         },
@@ -135,7 +135,7 @@ export default {
                             subs: [
                                 {
                                     index: 'CompanyModuleOne',
-                                    title: '模块一'
+                                    title: 'Banner图配置'
                                 }
                             ]
                         },
