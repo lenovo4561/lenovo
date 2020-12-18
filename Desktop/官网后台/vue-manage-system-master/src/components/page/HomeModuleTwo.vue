@@ -49,7 +49,7 @@
         name: 'HomeModuleTwo',
         components: {
             UploadComponent,
-            VueEditorComponent
+            VueEditorComponent,
         },
         data() {
             return {

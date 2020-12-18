@@ -86,7 +86,7 @@
         <!-- 查看详情 -->
         <el-dialog title="详情" @close='del_' :visible.sync="editVisible1" width="30%">
             <el-form ref="form" :model="data2" label-width="70px">
-                <el-form-item label="备注">
+                <el-form-item label="详细内容">
                     <el-input type="textarea" disabled v-model="data2.content"></el-input>
                 </el-form-item>
             </el-form>
@@ -100,6 +100,7 @@
         name: 'HomeModuleOne',
         data() {
             return {
+                flag_index:'',
                 editVisible1:false,
                 remarks:'',
                 editVisible:false,
@@ -126,19 +127,17 @@
         methods: {
             del_() {
                 this.editVisible1 = false
-                this.data2.content = ''
             },
             handleChildrenEdit(index, data) {
                 this.editVisible1 = true
-                this.data2 = {
-                    content:data.content,
-                }
+                this.data2.content = data.content
             },
             handleChange() {
 
             },
             changeData_del() {
                 this.remarks = ''
+                this.data2.content = ''
                 this.changeData()
             },
             saveData() {
@@ -148,9 +147,11 @@
                 this.editVisible = false
                 const id = Number(this.data.id)
                 this.data.id = id
+                this.data.remarks = this.remarks
                 changeStatus(this.data).then(res => {
                     if(res.code == 0){
                         this.$message.success(`修改成功`);
+                        this.tableData[this.flag_index].remarks = this.data.remarks
                     }else{
                         this.$message.error(`修改失败`);
                     }
@@ -161,6 +162,7 @@
                 this.data.id = Number(data.id),
                 this.data.is_checked = $event == true ? 1 : 0
                 this.remarks = data.remarks
+                this.flag_index = index
             },
             handleCurrentChange(val) {
                 this.currentPage = val
