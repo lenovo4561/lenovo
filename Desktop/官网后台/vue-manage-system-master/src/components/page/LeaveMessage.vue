@@ -50,6 +50,14 @@
                         <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.is_checked" @change='changeStatus($event,scope.row,scope.$index)' active-color="#13ce66"></el-switch>
                     </template>
                 </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                                type="primary"
+                                @click="handleChildrenEdit(scope.$index, scope.row)"
+                        >查看</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <el-pagination
                     :hide-on-single-page="total <= 20"
@@ -75,6 +83,14 @@
                 <el-button type="primary" @click="saveData">确 定</el-button>
             </span>
         </el-dialog>
+        <!-- 查看详情 -->
+        <el-dialog title="详情" @close='del_' :visible.sync="editVisible1" width="30%">
+            <el-form ref="form" :model="data2" label-width="70px">
+                <el-form-item label="备注">
+                    <el-input type="textarea" disabled v-model="data2.content"></el-input>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
     </div>
 </template>
 
@@ -84,6 +100,7 @@
         name: 'HomeModuleOne',
         data() {
             return {
+                editVisible1:false,
                 remarks:'',
                 editVisible:false,
                 Data_del:false,
@@ -96,6 +113,9 @@
                     id: '',
                     is_checked:'',
                     remarks:''
+                },
+                data2:{
+                    content:''
                 }
             };
 
@@ -104,6 +124,16 @@
 
         },
         methods: {
+            del_() {
+                this.editVisible1 = false
+                this.data2.content = ''
+            },
+            handleChildrenEdit(index, data) {
+                this.editVisible1 = true
+                this.data2 = {
+                    content:data.content,
+                }
+            },
             handleChange() {
 
             },

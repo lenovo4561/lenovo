@@ -56,7 +56,7 @@ export default {
     name: 'EditingAticle',
     components: {
         UploadComponent,
-        VueEditorComponent
+        VueEditorComponent,
     },
     data() {
         return {

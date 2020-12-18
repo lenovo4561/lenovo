@@ -62,17 +62,17 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-pagination
+                    v-if="total > 20"
+                    :hide-on-single-page="total <= 20"
+                    style="margin-top: 20px"
+                    background
+                    layout="prev, pager, next"
+                    :page-size="20"
+                    @current-change="handleCurrentChange"
+                    :total="total">
+            </el-pagination>
         </div>
-        <el-pagination
-                v-if="total > 20"
-                :hide-on-single-page="total <= 20"
-                style="margin-top: 20px"
-                background
-                layout="prev, pager, next"
-                :page-size="20"
-                @current-change="handleCurrentChange"
-                :total="total">
-        </el-pagination>
     </div>
 </template>
 

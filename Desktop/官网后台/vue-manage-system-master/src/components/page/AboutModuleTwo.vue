@@ -56,7 +56,7 @@
     export default {
         name: 'AboutModuleOne',
         components: {
-            VueEditorComponent
+            VueEditorComponent,
         },
         data() {
             return {

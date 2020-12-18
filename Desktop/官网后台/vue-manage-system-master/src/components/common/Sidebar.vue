@@ -139,17 +139,25 @@ export default {
                                 }
                             ]
                         },
+                        {
+                            index: '3-6',
+                            title: '联系我们模块',
+                            subs: [
+                                {
+                                    index: 'ContactUsModuleOne',
+                                    title: 'Banner图配置'
+                                },
+                                {
+                                    index: 'ContactUs',
+                                    title: '内容配置'
+                                },
+                                {
+                                    index: 'LeaveMessage',
+                                    title: '留言列表'
+                                },
+                            ]
+                        },
                     ]
-                },
-                {
-                    icon: 'el-icon-c-scale-to-original',
-                    index: 'ContactUs',
-                    title: '联系我们'
-                },
-                {
-                    icon: 'el-icon-s-comment',
-                    index: 'LeaveMessage',
-                    title: '留言列表'
                 },
                 // {
                 //     icon: 'el-icon-lx-calendar',

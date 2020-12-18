@@ -41,7 +41,7 @@ export const getColumn = query => {
 
 export const editColumn = query => {
     return request({
-        url: `/module/${query.uploadId}`,
+        url: `/module/${query.id}`,
         method: 'put',
         data: query
     });
@@ -341,6 +341,7 @@ export const addEnterprisetrendsModuleOne = query => {  //企业动态模块
     });
 };
 
+
 export const changeStatus = query => {  //留言状态
     return request({
         url: `/messageboard/${query.id}?id=${query.id}`,
@@ -348,4 +349,20 @@ export const changeStatus = query => {  //留言状态
         data:query
     });
 };
+
+export const getContactusModuleOne = query => {  //风格展示模块
+    return request({
+        url: `/contactus/module1`,
+        method: 'get'
+    });
+};
+
+export const editContactusModuleOne = query => {  //风格展示模块
+    return request({
+        url: `/contactus/module1`,
+        method: 'put',
+        data:query
+    });
+};
+
 

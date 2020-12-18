@@ -94,6 +94,11 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/CompanyModuleOne.vue'),
                     meta: { title: '公司动态' }
                 },
+                {
+                    path: '/ContactUsModuleOne',
+                    component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/ContactUsModuleOne.vue'),
+                    meta: { title: '联系我们' }
+                },
             ],
         },
         {
