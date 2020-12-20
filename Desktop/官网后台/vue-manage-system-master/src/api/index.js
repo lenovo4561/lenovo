@@ -357,9 +357,9 @@ export const getContactusModuleOne = query => {  //风格展示模块
     });
 };
 
-export const editContactusModuleOne = query => {  //风格展示模块
+export const UpdateSort = query => {  //跟新排序
     return request({
-        url: `/contactus/module1`,
+        url: `/module/changesort`,
         method: 'put',
         data:query
     });

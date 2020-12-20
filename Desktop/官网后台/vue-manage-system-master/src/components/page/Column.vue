@@ -10,6 +10,7 @@
         <div class="container">
             <el-button type="success" style="margin: 10px 0" @click="add_column">添加栏目</el-button>
             <el-table
+                    @sort-change="changeSort"
                     :data="tableData"
                     border
                     row-key="id"
@@ -21,6 +22,11 @@
                 <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
                 <el-table-column align="left" prop="name" label="栏目名"></el-table-column>
                 <el-table-column align="center" prop="path" label="path"></el-table-column>
+                <el-table-column prop="sort" label="排序" width="100" align="center">
+                    <template slot-scope="scope">
+                        <el-input type="text" v-model="scope.row.sort"></el-input>
+                    </template>
+                </el-table-column>
                 <el-table-column align="center" prop="created_at" label="创建时间">
                     <template slot-scope="scope">
                         {{ scope.row.created_at | timestampToTime(scope.row.created_at) }}
@@ -65,6 +71,11 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-button
+                    style="margin-top: 20px"
+                    type="success"
+                    @click="UpdateSort"
+            >更新排序</el-button>
         </div>
         <!-- 添加弹出框 -->
         <el-dialog title="添加" :visible.sync="editVisible1" @close='del_column' width="30%">
@@ -182,11 +193,13 @@
 </template>
 
 <script>
-    import { getData,editColumn,addColumn,getAllColumn,addChildrenColumn,addColumnSEO,EditColumnSEO,editChildren,getSEOMsg} from '../../api/index';
+    import Sortable from 'sortablejs'
+    import { getData,editColumn,addColumn,getAllColumn,addChildrenColumn,addColumnSEO,EditColumnSEO,editChildren,getSEOMsg,UpdateSort} from '../../api/index';
     export default {
         name: 'column',
         data() {
             return {
+                sortString:'',
                 flag_:'',
                 editVisible1: false,
                 value1: '',
@@ -250,14 +263,37 @@
                     title: '',
                     keywords: '',
                     description: ''
-                }
+                },
+                newArr:''
             };
-
         },
         created() {
             this.getData();
         },
         methods: {
+            UpdateSort(){
+                const list = []
+                this.tableData.forEach((item)=>{
+                    const Data = {
+                        id:item.id,
+                        sort:item.sort
+                    }
+                    list.push(Data)
+                })
+                UpdateSort({list}).then(res => {
+                    if(res.code == 0) {
+                        this.$message.success(`更新成功`);
+                    }else{
+                        this.$message.error(`更新失败`);
+                    }
+                })
+            },
+            // 从后台获取数据,重新排序
+            changeSort (val) {
+                console.log(11,val) // column: {…} order: "ascending" prop: "date"
+                // 根据当前排序重新获取后台数据,一般后台会需要一个排序的参数
+
+            },
             changeStatus($event,data,index) {
                 let id = Number(data.id)
                 let is_checked = $event == true ? 1 : 0
@@ -535,12 +571,65 @@
                         }
                     });
                 }
-            }
-
-
+            },
+            // Sort (prop) {
+            //     return function (obj1, obj2) {
+            //         var val1 = obj1[prop];
+            //         var val2 = obj2[prop];
+            //         if (!isNaN(Number(val1)) && !isNaN(Number(val2))) {
+            //             val1 = Number(val1);
+            //             val2 = Number(val2);
+            //         }
+            //         if (val1 < val2) {
+            //             return -1;
+            //         } else if (val1 > val2) {
+            //             return 1;
+            //         } else {
+            //             return 0;
+            //         }
+            //     }
+            // },
+            // rowDrop() {
+            //     const el = document.querySelectorAll('.el-table__body-wrapper > table > tbody')[0];
+            //     let self = this;
+            //     Sortable.create(el, {
+            //         onEnd({ newIndex, oldIndex }) {
+            //             const targetRow = self.tableData.splice(oldIndex, 1)[0]
+            //             self.tableData.splice(newIndex, 0, targetRow);return;
+            //             self.tableData.forEach((item, index) => {
+            //                 if(item == undefined){
+            //                     self.tableData.splice(index,1)
+            //                 }
+            //             })
+            //             self.sortString = []
+            //             let arr = []
+            //             let sortData = []
+            //             self.tableData.forEach((item, index) => {
+            //                 arr.push(item.sort)
+            //                 const data = {
+            //                     id :  item.id,
+            //                     sort: item.sort,
+            //                     index:index
+            //                 }
+            //                 // self.sortString.push(data)
+            //                 sortData.push(data)
+            //             })
+            //             arr.sort(function(a,b){
+            //                 return a-b
+            //             })
+            //             sortData.forEach((item, index) => {
+            //                 item.sort = arr[index]
+            //             })
+            //             console.log(arr);
+            //             console.log(sortData);return;
+            //            let data = self.tableData.sort(self.Sort("sort"))
+            //            //  console.log(data)
+            //         }
+            //     });
+            // }
         },
         mounted() {
-
+            // this.rowDrop()
         },
         filters: {
             timestampToTime (timestamp) {

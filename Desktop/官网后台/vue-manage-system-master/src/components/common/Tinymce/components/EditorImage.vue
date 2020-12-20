@@ -13,7 +13,7 @@
         :on-success="handleSuccess"
         :before-upload="beforeUpload"
         class="editor-slide-upload"
-        action="/upload"
+        :action="process.env.NODE_ENV === 'production' ? 'http://47.107.153.105:8989/upload' : '/upload'"
         list-type="picture-card"
       >
         <el-button size="small" type="primary">
