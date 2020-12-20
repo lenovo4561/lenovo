@@ -24,6 +24,10 @@ export default {
   name: 'Tinymce',
   components: { editorImage },
   props: {
+    proData: {
+      type: String,
+      default: '',
+    },
     id: {
       type: String,
       default: function() {
@@ -116,7 +120,7 @@ export default {
       const _this = this
       window.tinymce.init({
         selector: `#${this.tinymceId}`,
-        language: this.languageTypeList['zhCN'],
+        language: this.languageTypeList['zh'],
         height: this.height,
         body_class: 'panel-body ',
         object_resizing: false,
@@ -217,11 +221,11 @@ export default {
 }
 
 .tinymce-container {
-  /*::v-deep {*/
-  /*  .mce-fullscreen {*/
-  /*    z-index: 10000;*/
-  /*  }*/
-  /*}*/
+  ::v-deep {
+    .mce-fullscreen {
+      z-index: 10000;
+    }
+  }
 }
 
 .tinymce-textarea {

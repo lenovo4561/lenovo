@@ -5,6 +5,7 @@
     </el-button>
     <el-dialog :visible.sync="dialogVisible">
       <el-upload
+        :headers="hearder"
         :multiple="true"
         :file-list="fileList"
         :show-file-list="true"
@@ -12,7 +13,7 @@
         :on-success="handleSuccess"
         :before-upload="beforeUpload"
         class="editor-slide-upload"
-        action="https://httpbin.org/post"
+        action="/upload"
         list-type="picture-card"
       >
         <el-button size="small" type="primary">
@@ -42,6 +43,9 @@ export default {
   },
   data() {
     return {
+      hearder:{
+        Authorization: `Bearer ${localStorage.token}`
+      },
       dialogVisible: false,
       listObj: {},
       fileList: []
@@ -54,7 +58,7 @@ export default {
     handleSubmit() {
       const arr = Object.keys(this.listObj).map(v => this.listObj[v])
       if (!this.checkAllSuccess()) {
-        this.$message('Please wait for all images to be uploaded successfully. If there is a network problem, please refresh the page and upload again!')
+        this.$message('请等待所有图像成功上传。 如果出现网络问题，请刷新页面并重新上传！')
         return
       }
       this.$emit('successCBK', arr)
@@ -67,7 +71,7 @@ export default {
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          this.listObj[objKeyArr[i]].url = response.files.file
+          this.listObj[objKeyArr[i]].url = response.data.url
           this.listObj[objKeyArr[i]].hasSuccess = true
           return
         }
@@ -104,8 +108,8 @@ export default {
 <style lang="scss" scoped>
 .editor-slide-upload {
   margin-bottom: 20px;
-}
-.editor-slide-upload .el-upload--picture-card{
-  width: 100%;
+  ::v-deep .el-upload--picture-card {
+    width: 100%;
+  }
 }
 </style>

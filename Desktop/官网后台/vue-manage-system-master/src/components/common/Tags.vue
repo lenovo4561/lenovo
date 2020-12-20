@@ -59,8 +59,6 @@
             },
             // 设置标签
             setTags(route){
-                console.log(11,route)
-                console.log(22,this.tagsList)
                 // const isExist = this.tagsList.some(item => {
                 //     return item.path === route.fullPath;
                 // })
