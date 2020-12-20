@@ -66,6 +66,8 @@ export default {
       this.listObj = {}
       this.fileList = []
       this.dialogVisible = false
+      var imgs = document.getElementsByTagName('iframe')[0].contentWindow.document.getElementsByTagName('img')
+      for(let i=0;i<imgs.length;i++)imgs[i].style.width='100%'
     },
     handleSuccess(response, file) {
       const uid = file.uid

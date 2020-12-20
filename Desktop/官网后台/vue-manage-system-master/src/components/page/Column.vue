@@ -78,7 +78,7 @@
             >更新排序</el-button>
         </div>
         <!-- 添加弹出框 -->
-        <el-dialog title="添加" :visible.sync="editVisible1" @close='del_column' width="32%">
+        <el-dialog title="添加" :visible.sync="editVisible1" @close='del_column' width="35%">
             <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="栏目名">
                     <el-input v-model="add_column_data.name"></el-input>
@@ -298,6 +298,7 @@
                 let id = Number(data.id)
                 let is_checked = $event == true ? 1 : 0
                 let DATA = {
+                    id:id,
                     uploadId:id,
                     is_show:is_checked
                 }

@@ -8,7 +8,20 @@
             </el-breadcrumb>
         </div>
         <div class="container">
+            <div style="margin: 20px 0">
+                <span style="margin-right: 20px">筛选条件:</span>
+                <el-select @change="changStatus" v-model="value" placeholder="请选择">
+                    <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
             <el-table
+                    :default-sort = "{prop: 'created_at', order: 'descending'}"
+                    @sort-change="changeTableSort"
                     :data="tableData"
                     border
                     row-key="id"
@@ -35,7 +48,7 @@
 <!--                    </template>-->
 <!--                </el-table-column>-->
 
-                <el-table-column align="center" prop="created_at" label="创建时间">
+                <el-table-column align="center" prop="created_at" label="创建时间" :sortable="true">
                     <template slot-scope="scope">
                         {{ scope.row.created_at | timestampToTime(scope.row.created_at) }}
                     </template>
@@ -70,7 +83,7 @@
             </el-pagination>
         </div>
         <!-- 已读信息 -->
-        <el-dialog title="备注" :show-close="false" :visible.sync="editVisible" width="32%">
+        <el-dialog title="备注" :show-close="false" :visible.sync="editVisible" width="35%">
             <el-input
                     type="textarea"
                     placeholder="请输入内容"
@@ -109,6 +122,10 @@
                 total: undefined,
                 currentPage: 1,
                 pageSize: 20,
+                sortKey:'created_at',
+                sortVal:'desc',
+                is_checked:undefined,
+                // sortVal:'desc'
                 tableData: [],
                 data:{
                     id: '',
@@ -117,7 +134,15 @@
                 },
                 data2:{
                     content:''
-                }
+                },
+                options: [{
+                    value: '1',
+                    label: '已读'
+                }, {
+                    value: '0',
+                    label: '未读'
+                }],
+                value: ''
             };
 
         },
@@ -125,6 +150,14 @@
 
         },
         methods: {
+            changStatus(i){
+                this.is_checked = Number(i)
+                this.getData()
+            },
+            changeTableSort(i) {
+            this.sortVal = i.order == 'ascending' ? 'asc' : 'desc'
+            this.getData()
+            },
             del_() {
                 this.editVisible1 = false
             },
@@ -172,8 +205,12 @@
                 var that = this
                 getMessageBoard({
                     currentPage: that.currentPage,
-                    pageSize: that.pageSize
+                    pageSize: that.pageSize,
+                    sortKey: that.sortKey,
+                    sortVal:that.sortVal,
+                    is_checked:this.is_checked
                 }).then(res => {
+                    this.tableData = []
                     console.log(res.data)
                     this.tableData = res.data.data;
                     this.total = Number(res.data.total)
@@ -186,6 +223,9 @@
                 this.$router.push({
                     path: '/EditingModuleOne'
                 })
+            },
+            sortByDate(i){
+                console.log(i)
             }
         },
         mounted() {
