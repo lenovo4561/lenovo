@@ -45,7 +45,7 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
+        <el-dialog title="编辑" :visible.sync="editVisible" width="32%">
             <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="图片描述">
                     <el-input v-model="form.alt"></el-input>

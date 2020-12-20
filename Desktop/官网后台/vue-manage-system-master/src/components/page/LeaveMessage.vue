@@ -70,7 +70,7 @@
             </el-pagination>
         </div>
         <!-- 已读信息 -->
-        <el-dialog title="备注" :show-close="false" :visible.sync="editVisible" width="30%">
+        <el-dialog title="备注" :show-close="false" :visible.sync="editVisible" width="32%">
             <el-input
                     type="textarea"
                     placeholder="请输入内容"

@@ -50,8 +50,8 @@
             </div>
         </div>
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%" @close='edit_artcle_del'>
-            <VueEditorComponent :proData="proData" :content="contentData" @aaa="adasd" />
+        <el-dialog title="编辑" :visible.sync="editVisible" width="32%" @close='edit_artcle_del'>
+            <VueEditorComponent2 :proData="proData" :content="contentData" @aaa="adasd" />
         </el-dialog>
     </div>
 </template>
@@ -59,13 +59,13 @@
 <script>
 import { editArticleByparentId, editPicById, getPicById,addPicById } from '../../api/index';
 import UploadComponent from '../common/Upload'
-import VueEditorComponent from '../common/VueEditor'
+import VueEditorComponent2 from '../common/VueEditor2'
 import bus from '../common/bus';
 export default {
     name: 'EditingPic',
     components: {
         UploadComponent,
-        VueEditorComponent
+        VueEditorComponent2
     },
     data() {
         return {

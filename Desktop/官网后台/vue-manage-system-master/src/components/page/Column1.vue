@@ -67,7 +67,7 @@
             </el-table>
         </div>
         <!-- 添加弹出框 -->
-        <el-dialog title="添加" :visible.sync="editVisible1" @close='del_column' width="30%">
+        <el-dialog title="添加" :visible.sync="editVisible1" @close='del_column' width="32%">
             <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="栏目名">
                     <el-input v-model="add_column_data.name"></el-input>
