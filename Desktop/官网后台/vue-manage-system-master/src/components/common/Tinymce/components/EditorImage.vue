@@ -13,7 +13,7 @@
         :on-success="handleSuccess"
         :before-upload="beforeUpload"
         class="editor-slide-upload"
-        :action="process.env.NODE_ENV === 'production' ? 'http://47.107.153.105:8989/upload' : '/upload'"
+        :action="action"
         list-type="picture-card"
       >
         <el-button size="small" type="primary">
@@ -43,6 +43,7 @@ export default {
   },
   data() {
     return {
+      action: '',
       hearder:{
         Authorization: `Bearer ${localStorage.token}`
       },
@@ -101,6 +102,10 @@ export default {
         resolve(true)
       })
     }
+  },
+  mounted() {
+    this.action = process.env.NODE_ENV == 'production' ? 'http://47.107.153.105:8989/upload' : '/upload'
+    console.log(process.env.NODE_ENV)
   }
 }
 </script>
