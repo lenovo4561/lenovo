@@ -157,6 +157,16 @@ export default {
                                 },
                             ]
                         },
+                        {
+                            index: '3-7',
+                            title: '加入我们模块',
+                            subs: [
+                                {
+                                    index: 'JoinUsModuleOne',
+                                    title: 'Banner图配置'
+                                }
+                            ]
+                        },
                     ]
                 },
                 // {

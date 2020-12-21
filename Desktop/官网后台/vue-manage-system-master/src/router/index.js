@@ -99,6 +99,16 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/ContactUsModuleOne.vue'),
                     meta: { title: '联系我们' }
                 },
+                {
+                    path: '/JoinUsModuleOne',
+                    component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/JoinUsModuleOne.vue'),
+                    meta: { title: '加入我们' }
+                },
+                {
+                    path: '/JoinUsModuleTwo',
+                    component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/JoinUsModuleTwo.vue'),
+                    meta: { title: '加入我们' }
+                },
             ],
         },
         {
@@ -137,7 +147,12 @@ export default new Router({
                     path: '/403',
                     component: () => import(/* webpackChunkName: "403" */ '../components/page/403.vue'),
                     meta: { title: '403' }
-                }
+                },
+                {
+                    path: '/EditingArticle2',
+                    component: () => import(/* webpackChunkName: "column" */ '../components/page/EditingArticle2.vue'),
+                    meta: { title: '职位编辑' }
+                },
             ]
         },
         {

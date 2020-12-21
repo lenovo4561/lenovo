@@ -23,6 +23,11 @@
                         <div>{{scope.row.title | zenze(scope.row.title) | ellipsis}}</div>
                     </template>
                 </el-table-column>
+                <el-table-column prop="desc" align="center" label="次级描述">
+                    <template slot-scope="scope">
+                        <div>{{scope.row.desc | zenze(scope.row.desc) | ellipsis}}</div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="content" align="center" label="文章内容" width="455">
                     <template slot-scope="scope">
 <!--                        <div v-html="scope.row.content"></div>-->
@@ -101,10 +106,18 @@ export default {
             this.getData()
         },
         add_article(){
-          this.$router.push({
-              path:'/EditingArticle',
-              query:{parent_id:this.id}
-          })
+            if(this.id == 23){
+                this.$router.push({
+                    path:'/EditingArticle2',
+                    query:{parent_id:this.id}
+                })
+            }else{
+                this.$router.push({
+                    path:'/EditingArticle',
+                    query:{parent_id:this.id}
+                })
+            }
+
         },
         del() {
             this.editVisible = false
@@ -121,14 +134,25 @@ export default {
         },
         // 编辑操作
         handleEdit(index, row) {
-            const data = {
-                id : row.id,
-                parent_id : row.parent_id
+            if(this.id == 23 || row.parent_id == 23){
+                const data = {
+                    id : row.id,
+                    parent_id : row.parent_id
+                }
+                this.$router.push({
+                    path: '/EditingArticle2',
+                    query: data
+                })
+            }else{
+                const data = {
+                    id : row.id,
+                    parent_id : row.parent_id
+                }
+                this.$router.push({
+                    path: '/EditingArticle',
+                    query: data
+                })
             }
-            this.$router.push({
-                path: '/EditingArticle',
-                query: data
-            })
         },
     },
     mounted() {

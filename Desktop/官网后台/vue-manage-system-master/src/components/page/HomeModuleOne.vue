@@ -21,6 +21,11 @@
                 <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
                 <el-table-column align="center" prop="alt" label="描述"></el-table-column>
                 <el-table-column align="center" prop="path" label="path"></el-table-column>
+                <el-table-column prop="sort" label="排序" width="100" align="center">
+                    <template slot-scope="scope">
+                        <el-input type="text" v-model="scope.row.sort"></el-input>
+                    </template>
+                </el-table-column>
                 <el-table-column label="是否外链" width="155">
                     <template slot-scope="scope">{{scope.row.is_link | filterValue(scope.row.is_link)}}</template>
                 </el-table-column>
@@ -58,12 +63,17 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-button
+                    style="margin-top: 20px"
+                    type="success"
+                    @click="UpdateSort"
+            >更新排序</el-button>
         </div>
     </div>
 </template>
 
 <script>
-    import { getModuleOne,addModuleOne,editModuleOne } from '../../api/index';
+    import { getModuleOne, addModuleOne, editModuleOne, HoemBannerSort } from '../../api/index';
     export default {
         name: 'HomeModuleOne',
         data() {
@@ -77,6 +87,23 @@
 
         },
         methods: {
+            UpdateSort(){
+                const list = []
+                this.tableData.forEach((item)=>{
+                    const Data = {
+                        id:item.id,
+                        sort:item.sort
+                    }
+                    list.push(Data)
+                })
+                HoemBannerSort({list}).then(res => {
+                    if(res.code == 0) {
+                        this.$message.success(`更新成功`);
+                    }else{
+                        this.$message.error(`更新失败`);
+                    }
+                })
+            },
             changeStatus($event,data,index) {
                 this.data = {
                     id:Number(data.id),

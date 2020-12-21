@@ -357,9 +357,40 @@ export const getContactusModuleOne = query => {  //风格展示模块
     });
 };
 
+export const getJoinUsModuleOne = query => {  //加入我们模块
+    return request({
+        url: `/joinus/module1`,
+        method: 'get'
+    });
+};
+
+export const addJoinUsModuleOne = query => {  //加入我们模块
+    return request({
+        url: `/joinus/module1`,
+        method: 'post',
+        data:query
+    });
+};
+
+export const editJoinUsModuleOne = query => {  //加入我们模块
+    return request({
+        url: `/joinus/module1`,
+        method: 'put',
+        data:query
+    });
+};
+
 export const UpdateSort = query => {  //跟新排序
     return request({
         url: `/module/changesort`,
+        method: 'put',
+        data:query
+    });
+};
+
+export const HoemBannerSort = query => {  //首页Banner跟新排序
+    return request({
+        url: `/home/module1/changesort`,
         method: 'put',
         data:query
     });
