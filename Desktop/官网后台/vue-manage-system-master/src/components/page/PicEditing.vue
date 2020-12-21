@@ -34,6 +34,7 @@
                 <el-table-column label="图片" align="center">
                     <template slot-scope="scope">
                         <el-image
+                            @click.stop="handleClickItem"
                             class="table-td-thumb"
                             :src="scope.row.url"
                             :preview-src-list="[scope.row.url]"
@@ -115,6 +116,19 @@ export default {
 
     },
     methods: {
+        handleClickItem(){
+            // 获取遮罩层dom
+            setTimeout(()=>{
+                let domImageMask = document.querySelector(".el-image-viewer__mask");
+                if (!domImageMask) {
+                    return;
+                }
+                domImageMask.addEventListener("click", () => {
+                    // 点击遮罩层时调用关闭按钮的 click 事件
+                    document.querySelector(".el-image-viewer__close").click();
+                });
+            },0)
+        },
         handleCurrentChange(val) {
             this.currentPage = val
             this.getData()
