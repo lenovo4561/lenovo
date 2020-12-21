@@ -30,7 +30,7 @@
                     header-cell-class-name="table-header"
                     :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
             >
-                <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
+                <el-table-column type="index" :index="indexMethod" label="序号" width="55" align="center"></el-table-column>
                 <el-table-column align="center" prop="name" label="姓名"></el-table-column>
                 <el-table-column align="center" prop="phone" label="手机号"></el-table-column>
                 <el-table-column align="center" prop="content" label="内容">
@@ -150,6 +150,10 @@
 
         },
         methods: {
+            indexMethod(index) {
+                index = (index + 1) + (this.currentPage - 1) * this.pageSize
+                return index
+            },
             changStatus(i){
                 this.is_checked = Number(i)
                 this.getData()

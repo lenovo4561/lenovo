@@ -16,7 +16,7 @@
                 ref="multipleTable"
                 header-cell-class-name="table-header"
             >
-                <el-table-column type="index" label="序号" align="center"></el-table-column>
+                <el-table-column type="index" :index="indexMethod" label="序号" align="center"></el-table-column>
                 <el-table-column prop="title" label="图片标题">
                     <template slot-scope="scope">
                         <!--                        <div v-html="scope.row.title"></div>-->
@@ -116,6 +116,10 @@ export default {
 
     },
     methods: {
+        indexMethod(index) {
+            index = (index + 1) + (this.currentPage - 1) * this.pageSize
+            return index
+        },
         handleClickItem(){
             // 获取遮罩层dom
             setTimeout(()=>{
