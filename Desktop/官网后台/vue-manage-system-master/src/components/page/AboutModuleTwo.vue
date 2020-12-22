@@ -110,8 +110,8 @@
                     this.index_ = index
                     this.contentData = this.form.items[index].value;
                 }
-                this.editVisible = true
                 this.proData = data
+                this.editVisible = true
             },
             editTitle(data) {
                 this.editVisible = false
@@ -132,7 +132,7 @@
                 const content = data.content
                 this.editVisible = false
                 this.form.items[index].value = content
-            },
+            }
         },
         created() {
             bus.$on('editTitle', this.editTitle);

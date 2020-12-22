@@ -33,7 +33,8 @@
             return {
                 editorOption: {
                     placeholder: 'Hello World'
-                }
+                },
+                innerContent: ''
             }
         },
         computed: {
@@ -70,7 +71,7 @@
                     });
                 }
             }
-        }
+        },
     }
 </script>
 <style scoped>
