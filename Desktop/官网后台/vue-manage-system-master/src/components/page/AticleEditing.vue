@@ -213,7 +213,11 @@ export default {
             return value;
         },
         zenze(v) {
-            return v.replace(/<[^>]*>|<\/[^>]*>/gm, "").replace(/&nbsp;/gm, "");
+            if(!v){
+                return "";
+            }else{
+                return v.replace(/<[^>]*>|<\/[^>]*>/gm, "").replace(/&nbsp;/gm, "");
+            }
         }
     },
 };

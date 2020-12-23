@@ -73,9 +73,6 @@ export default {
         PicID(v) {
             this.form.uploadId = v
         },
-        adasd(v) {
-            this.contentData = v;
-        },
         onSubmit() {
             const lon = Number(this.form.lon)
             const lat = Number(this.form.lat)
