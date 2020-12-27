@@ -4,7 +4,7 @@
             <div class="plugins-tips" style="text-align: center">
                 编辑内容
             </div>
-            <TinymceComponent v-model="innerContent" :height="300"></TinymceComponent>
+            <TinymceComponent ref="myTinymce" v-model="innerContent" :height="300"></TinymceComponent>
             <el-button class="editor-btn" style="width: 100%;text-align: center" type="primary" @click="submit">提交</el-button>
         </div>
     </div>
@@ -34,17 +34,17 @@
                 editorOption: {
                     placeholder: 'Hello World'
                 },
-                innerContent: this.content
+                innerContent: this.content,
+                currentValue: '',
             }
         },
         watch: {
             content(val) {
+                this.$refs.myTinymce.setHashchange(false);
                 this.innerContent = val
             },
-            currentValue(val) {
-                if (this.content !== val) {
-                    this.$emit('aaa', val)
-                }
+            innerContent(val) {
+                this.currentValue = val;
             },
         },
 
@@ -54,7 +54,8 @@
                   return this.content
               },
               set (newVal) {
-                this.$emit('aaa', newVal);
+                  this.currentValue = newVal;
+                // this.$emit('aaa', newVal);
               },
           },
         },
@@ -66,21 +67,33 @@
                 this.content = html;
             },
             submit(){
-                if(this.proData == 'title'){
-                    bus.$emit('editTitle',this.content);
-                }else if(this.proData == 'content'){
-                    bus.$emit('editContent',this.content);
-                }else if(this.proData == 'name'){
-                    bus.$emit('editName',{
-                        content:this.content,
-                        index:this.index_
-                    });
-                }else if(this.proData == 'value'){
-                    bus.$emit('editValue',{
-                        content:this.content,
-                        index:this.index_
-                    });
-                }
+                this.$emit('aaa', this.currentValue);
+                // if(this.proData == 'title'){
+                //     bus.$emit('editTitle',this.content);
+                // }else if(this.proData == 'content'){
+                //     bus.$emit('editContent',this.content);
+                // }else if(this.proData == 'name'){
+                //     bus.$emit('editName',{
+                //         content:this.content,
+                //         index:this.index_
+                //     });
+                // }else if(this.proData == 'value'){
+                //     bus.$emit('editValue',{
+                //         content:this.content,
+                //         index:this.index_
+                //     });
+                // }
+                // if(this.proData == 'name'){
+                //     bus.$emit('editName',{
+                //         content:this.content,
+                //         index:this.index_
+                //     });
+                // }else if(this.proData == 'value'){
+                //     bus.$emit('editValue',{
+                //         content:this.content,
+                //         index:this.index_
+                //     });
+                // }
             }
         },
     }

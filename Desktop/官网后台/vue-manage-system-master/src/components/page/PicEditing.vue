@@ -41,9 +41,19 @@
                         ></el-image>
                     </template>
                 </el-table-column>
+                <el-table-column prop="sort" label="排序" width="100" align="center">
+                    <template slot-scope="scope">
+                        <el-input type="text" v-model="scope.row.sort"></el-input>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="path" label="path"></el-table-column>
                 <el-table-column prop="width" label="宽度"></el-table-column>
                 <el-table-column prop="height" label="高度"></el-table-column>
+                <el-table-column align="center" prop="status" label="开启状态">
+                    <template slot-scope="scope">
+                        <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.status" @change='changeStatus($event,scope.row,scope.$index)' active-color="#13ce66"></el-switch>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="created_at" label="创建时间">
                     <template slot-scope="scope">
                         {{ scope.row.created_at | timestampToTime(scope.row.created_at) }}
@@ -75,12 +85,23 @@
                     @current-change="handleCurrentChange"
                     :total="total">
             </el-pagination>
+            <el-button
+                    style="margin-top: 20px"
+                    type="success"
+                    @click="UpdateSort"
+            >更新排序</el-button>
         </div>
     </div>
 </template>
 
 <script>
-    import { getAllPic, getAllPicByparentId } from '../../api/index';
+    import {
+        getAllPic,
+        getAllPicByparentId,
+        PicSort,
+        UpdatePicStatusById,
+        UpdatestatusById
+    } from '../../api/index';
 export default {
     name: 'PicEditing',
     data() {
@@ -116,6 +137,35 @@ export default {
 
     },
     methods: {
+        UpdateSort(){
+            const list = []
+            this.tableData.forEach((item)=>{
+                const Data = {
+                    id:item.id,
+                    sort: item.sort ? +item.sort : null
+                }
+                list.push(Data)
+            })
+            PicSort({list}).then(res => {
+                if(res.code == 0) {
+                    this.$message.success(`更新成功`);
+                }else{
+                    this.$message.error(`更新失败`);
+                }
+            })
+        },
+        changeStatus($event,data,index) {
+            this.data = {
+                id:Number(data.id),
+                status: $event == true ? 1 : 0
+            }
+            UpdatePicStatusById(this.data).then(res => {
+                if(res.code == 0){
+                    this.$message.success(`修改成功`);
+                }
+            });
+
+        },
         indexMethod(index) {
             index = (index + 1) + (this.currentPage - 1) * this.pageSize
             return index

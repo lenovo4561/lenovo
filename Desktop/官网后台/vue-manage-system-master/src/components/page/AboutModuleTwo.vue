@@ -19,19 +19,19 @@
                     <el-form-item label="文章内容">
                         <div style="display: flex;justify-content: space-between">
                             <el-input v-html="form.desc" disabled></el-input>
-                            <el-button style="height: 32px" type="primary" @click="edit('content')">编辑</el-button>
+                            <el-button style="height: 32px" type="primary" @click="edit('desc')">编辑</el-button>
                         </div>
                     </el-form-item>
-                    <template v-for='(itemss, indexs) in form.items'>
+                    <template v-for='(item, index) in form.items'>
                         <el-form-item label="items">
                             <div style="display: flex;justify-content: space-between">
-                                <el-input v-html="itemss.name" disabled></el-input>
-                                <el-button style="height: 32px" type="primary" @click="edit('name',indexs)">编辑</el-button>
+                                <el-input v-html="item.name" disabled></el-input>
+                                <el-button style="height: 32px" type="primary" @click="edit(`items.${index}.name`, 1)">编辑</el-button>
                             </div>
                             <br>
                             <div style="display: flex;justify-content: space-between">
-                                <el-input v-html="itemss.value" disabled></el-input>
-                                <el-button style="height: 32px" type="primary" @click="edit('value',indexs)">编辑</el-button>
+                                <el-input v-html="item.value" disabled></el-input>
+                                <el-button style="height: 32px" type="primary" @click="edit(`items.${index}.value`)">编辑</el-button>
                             </div>
                         </el-form-item>
                     </template>
@@ -67,11 +67,19 @@
                 form: {},
                 proData:'',
                 editVisible:false,
+                formAttr: '',
             };
         },
         methods: {
-            adasd(v) {
-                this.contentData = v;
+            adasd(val) {
+                if (this.formAttr.indexOf('.') !== -1) {
+                    const splitArr = this.formAttr.split('.');
+                    this.form[splitArr[0]][splitArr[1]][splitArr[2]] = val;
+                } else {
+                    this.form[this.formAttr] = val;
+                }
+                this.editVisible = false
+                // this.contentData = info;
             },
             changeValue(a,b) {
                 this.form.items[b].value = a
@@ -98,18 +106,27 @@
             edit_artcle_del() {
                 this.proData = ''
             },
-            edit(data,index) {
-                if(data == 'title'){
-                    this.contentData = this.form.title;
-                }else if(data == 'content'){
-                    this.contentData = this.form.desc;
-                }else if(data == 'name'){
-                    this.contentData = this.form.items[index].name;
-                    this.index_ = index
-                }else if(data == 'value'){
-                    this.index_ = index
-                    this.contentData = this.form.items[index].value;
+            edit(data) {
+                let splitArr;
+                if (data.indexOf('.') !== -1) {
+                    splitArr = data.split('.');
+                    this.contentData = this.form[splitArr[0]][splitArr[1]][splitArr[2]];
+                } else {
+                    this.contentData = this.form[data];
                 }
+                console.log(splitArr);
+                this.formAttr = data;
+                // if(data == 'title'){
+                //     this.contentData = this.form.title;
+                // }else if(data == 'content'){
+                //     this.contentData = this.form.desc;
+                // }else if(data == 'name'){
+                //     this.contentData = this.form.items[index].name;
+                //     this.index_ = index
+                // }else if(data == 'value'){
+                //     this.index_ = index
+                //     this.contentData = this.form.items[index].value;
+                // }
                 this.proData = data
                 this.editVisible = true
             },

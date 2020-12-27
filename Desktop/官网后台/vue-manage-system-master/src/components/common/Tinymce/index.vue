@@ -209,7 +209,10 @@ export default {
     },
     imageSuccessCBK(arr) {
       arr.forEach(v => window.tinymce.get(this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`))
-    }
+    },
+    setHashchange(mark) {
+      this.hasChange = mark;
+    },
   }
 }
 </script>

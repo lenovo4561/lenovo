@@ -49,6 +49,11 @@
                         ></el-image>
                     </template>
                 </el-table-column>
+                <el-table-column align="center" prop="status" label="开启状态">
+                    <template slot-scope="scope">
+                        <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.status" @change='changeStatus($event,scope.row,scope.$index)' active-color="#13ce66"></el-switch>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="created_at" align="center" label="创建时间">
                     <template slot-scope="scope">
                         {{ scope.row.created_at | timestampToTime(scope.row.created_at) }}
@@ -84,7 +89,7 @@
 </template>
 
 <script>
-import { getAllArticle,getAllArticleByparentId } from '../../api/index';
+    import { editModuleOne, getAllArticle, getAllArticleByparentId,UpdatestatusById } from '../../api/index';
 export default {
     name: 'AticleEditing',
     data() {
@@ -103,6 +108,18 @@ export default {
 
     },
     methods: {
+        changeStatus($event,data,index) {
+            this.data = {
+                id:Number(data.id),
+                status: $event == true ? 1 : 0
+            }
+            UpdatestatusById(this.data).then(res => {
+                if(res.code == 0){
+                    this.$message.success(`修改成功`);
+                }
+            });
+
+        },
         indexMethod(index) {
             index = (index + 1) + (this.currentPage - 1) * this.pageSize
             return index

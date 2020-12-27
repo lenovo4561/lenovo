@@ -13,14 +13,14 @@
                 <el-form ref="form" :model="form" label-width="80px" style="margin-top: 50px">
                     <el-form-item label="文章标题" label-width="100px">
                         <div style="display: flex;justify-content: space-between">
-                            <el-input v-html="form.title" disabled></el-input>
+                            <el-input v-html="form.title"></el-input>
                             <el-button style="height: 32px" type="primary" @click="edit('title')">编辑</el-button>
                         </div>
                     </el-form-item>
                     <el-form-item label="文章内容" label-width="100px">
                         <div style="display: flex;justify-content: space-between">
                             <el-input v-html="form.desc" disabled></el-input>
-                            <el-button style="height: 32px" type="primary" @click="edit('content')">编辑</el-button>
+                            <el-button style="height: 32px" type="primary" @click="edit('desc')">编辑</el-button>
                         </div>
                     </el-form-item>
                     <el-form-item label="图片关键词" label-width="100px">
@@ -59,7 +59,9 @@
                 id:'',
                 contentData: '',
                 form: {
-
+                    title: '',
+                    desc: '',
+                    alt: '',
                 },
                 proData:'',
                 editVisible:false,
@@ -70,8 +72,15 @@
             PicID(v) {
                 this.form.uploadId = v
             },
-            adasd(v) {
-                this.contentData = v;
+            adasd(val) {
+                if (this.formAttr.indexOf('.') !== -1) {
+                    const splitArr = this.formAttr.split('.');
+                    this.form[splitArr[0]][splitArr[1]][splitArr[2]] = val;
+                } else {
+                    this.form[this.formAttr] = val;
+                }
+                this.editVisible = false
+                // this.contentData = info;
             },
             onSubmit() {
                 editModuleTwo(this.form).then(res => {
@@ -86,16 +95,20 @@
                 this.proData = ''
             },
             edit(data) {
-                if(data == 'title'){
-                    this.contentData = this.form.title;
-                }else{
-                    this.contentData = this.form.desc;
+                let splitArr;
+                if (data.indexOf('.') !== -1) {
+                    splitArr = data.split('.');
+                    this.contentData = this.form[splitArr[0]][splitArr[1]][splitArr[2]];
+                } else {
+                    this.contentData = this.form[data];
                 }
+                console.log(splitArr);
+                this.formAttr = data;
                 this.editVisible = true
-                this.proData = data
             },
             editTitle(data) {
                 this.editVisible = false
+                console.log(data)
                 this.form.title = data
             },
             editContent(data) {
@@ -106,7 +119,12 @@
                 getModuleTwo().then(res => {
                     if(res.code == 0){
                         this.flag_ = true
-                        this.form = res.data.data
+                        const data = res.data.data;
+                        this.form = {
+                            title: data.title,
+                            desc: data.desc,
+                            alt: data.alt,
+                        }
                         this.fileList = [
                             {url:res.data.data.url}
                         ]

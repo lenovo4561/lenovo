@@ -106,7 +106,7 @@
                 this.tableData.forEach((item)=>{
                     const Data = {
                         id:item.id,
-                        sort:item.sort
+                        sort: item.sort ? +item.sort : null
                     }
                     list.push(Data)
                 })

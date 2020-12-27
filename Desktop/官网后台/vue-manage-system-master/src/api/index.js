@@ -124,6 +124,22 @@ export const editArticleByparentId = query => {  //修改文章
     });
 };
 
+export const UpdatestatusById = query => {  //修改文章状态
+    return request({
+        url: `/articletype/updatestatus/${query.id}`,
+        method: 'put',
+        data: query
+    });
+};
+
+export const UpdatePicStatusById = query => {  //修改图片状态
+    return request({
+        url: `/imgtype/updatestatus/${query.id}`,
+        method: 'put',
+        data: query
+    });
+};
+
 export const getAllPicByparentId = query => {  //根据子栏目id获取图片集
     return request({
         url: `/module/class/${query.id}/img?id=${query.id}`,
@@ -429,6 +445,14 @@ export const getJoinUsModuleTwoById = query => {  //加入我们模块二查询
 export const JoinUsBannerSort = query => {  //加入我们Banner跟新排序
     return request({
         url: `/joinus/module2/changesort`,
+        method: 'put',
+        data:query
+    });
+};
+
+export const PicSort = query => {  //图片集排序
+    return request({
+        url: `/imgtype/changesort`,
         method: 'put',
         data:query
     });
