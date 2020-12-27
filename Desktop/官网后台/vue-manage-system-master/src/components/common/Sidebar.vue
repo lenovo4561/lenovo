@@ -164,6 +164,10 @@ export default {
                                 {
                                     index: 'JoinUsModuleOne',
                                     title: 'Banner图配置'
+                                },
+                                {
+                                    index: 'JoinUsModuleTwo',
+                                    title: '轮播图配置'
                                 }
                             ]
                         },

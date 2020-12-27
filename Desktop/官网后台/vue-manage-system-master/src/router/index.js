@@ -107,7 +107,12 @@ export default new Router({
                 {
                     path: '/JoinUsModuleTwo',
                     component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/JoinUsModuleTwo.vue'),
-                    meta: { title: '加入我们' }
+                    meta: { title: '加入我们模块二' }
+                },
+                {
+                    path: '/EditingJoinUsModule',
+                    component: () => import(/* webpackChunkName: "EditingModuleTwo" */ '../components/page/EditingJoinUsModule.vue'),
+                    meta: { title: '模块编辑' }
                 },
             ],
         },

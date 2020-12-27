@@ -396,4 +396,50 @@ export const HoemBannerSort = query => {  //首页Banner跟新排序
     });
 };
 
+export const getJoinUsModuleTwo = query => {  //加入我们模块二获取
+    return request({
+        url: `/joinus/module2`,
+        method: 'get'
+    });
+};
+
+export const addJoinUsModuleTwo = query => {  //添加 加入我们模块二获取
+    return request({
+        url: `/joinus/module2`,
+        method: 'post',
+        data:query
+    });
+};
+
+export const editJoinUsModuleTwo = query => {  //加入我们模块二获取
+    return request({
+        url: `/joinus/module2/${query.id}`,
+        method: 'put',
+        data: query
+    });
+};
+
+export const getJoinUsModuleTwoById = query => {  //加入我们模块二查询
+    return request({
+        url: `/joinus/module2/${query.id}`,
+        method: 'get'
+    });
+};
+
+export const JoinUsBannerSort = query => {  //加入我们Banner跟新排序
+    return request({
+        url: `/joinus/module2/changesort`,
+        method: 'put',
+        data:query
+    });
+};
+
+export const editJoinModuleTwo = query => {  //修改加入我们模块
+    return request({
+        url: `/joinus/module2/${query.id}?id=${query.id}`,
+        method: 'put',
+        data: query
+    });
+};
+
 

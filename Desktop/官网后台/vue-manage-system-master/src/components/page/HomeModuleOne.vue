@@ -26,7 +26,7 @@
                         <el-input type="text" v-model="scope.row.sort"></el-input>
                     </template>
                 </el-table-column>
-                <el-table-column label="是否外链" width="155">
+                <el-table-column label="是否外链" align="center">
                     <template slot-scope="scope">{{scope.row.is_link | filterValue(scope.row.is_link)}}</template>
                 </el-table-column>
                 <el-table-column label="banner图" align="center" width="155">

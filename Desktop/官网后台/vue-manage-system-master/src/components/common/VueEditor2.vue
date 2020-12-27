@@ -4,7 +4,7 @@
             <div class="plugins-tips" style="text-align: center">
                 编辑内容
             </div>
-            <TinymceComponent v-model="computedContent" :height="300"></TinymceComponent>
+            <TinymceComponent v-model="innerContent" :height="300"></TinymceComponent>
             <el-button class="editor-btn" style="width: 100%;text-align: center" type="primary" @click="submit">提交</el-button>
         </div>
     </div>
@@ -34,9 +34,20 @@
                 editorOption: {
                     placeholder: 'Hello World'
                 },
-                innerContent: ''
+                innerContent: this.content
             }
         },
+        watch: {
+            content(val) {
+                this.innerContent = val
+            },
+            currentValue(val) {
+                if (this.content !== val) {
+                    this.$emit('aaa', val)
+                }
+            },
+        },
+
         computed: {
           computedContent: {
               get () {

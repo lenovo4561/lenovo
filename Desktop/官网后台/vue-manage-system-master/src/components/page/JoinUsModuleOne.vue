@@ -3,7 +3,7 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-lx-calendar"></i> 企业动态模块编辑
+                    <i class="el-icon-lx-calendar"></i> 加入我们
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
