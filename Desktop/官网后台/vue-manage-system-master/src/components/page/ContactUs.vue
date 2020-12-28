@@ -63,7 +63,7 @@ export default {
             },
             proData:'',
             editVisible:false,
-
+            formAttr:''
         };
     },
     methods: {

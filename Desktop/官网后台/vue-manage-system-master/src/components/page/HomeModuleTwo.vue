@@ -65,7 +65,7 @@
                 },
                 proData:'',
                 editVisible:false,
-
+                formAttr:''
             };
         },
         methods: {

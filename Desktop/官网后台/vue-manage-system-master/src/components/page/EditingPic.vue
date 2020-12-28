@@ -94,6 +94,7 @@ export default {
                 value: '0',
                 label: '否'
             }],
+            formAttr: '',
         };
     },
     methods: {
@@ -103,8 +104,15 @@ export default {
         select(value){
             this.form.is_link = value
         },
-        adasd(v) {
-            this.contentData = v;
+        adasd(val) {
+            if (this.formAttr.indexOf('.') !== -1) {
+                const splitArr = this.formAttr.split('.');
+                this.form[splitArr[0]][splitArr[1]][splitArr[2]] = val;
+            } else {
+                this.form[this.formAttr] = val;
+            }
+            this.editVisible = false
+            // this.contentData = info;
         },
         onSubmit() {
             if(this.flag_){
@@ -143,11 +151,17 @@ export default {
             this.proData = ''
         },
         edit(data) {
-            if(data == 'title'){
-                this.contentData = this.form.title;
+            let splitArr;
+            if (data.indexOf('.') !== -1) {
+                splitArr = data.split('.');
+                this.contentData = this.form[splitArr[0]][splitArr[1]][splitArr[2]];
+            } else {
+                this.contentData = this.form[data];
             }
-            this.editVisible = true
+            console.log(splitArr);
+            this.formAttr = data;
             this.proData = data
+            this.editVisible = true
         },
         editTitle(data) {
             this.editVisible = false
