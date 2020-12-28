@@ -11,13 +11,22 @@
             <div class="form-box">
                 <el-form ref="form" :model="form" label-width="80px" style="margin-top: 50px">
                     <el-form-item label="职位名字">
-                        <el-input v-model="form.title"></el-input>
+                        <div style="display: flex;justify-content: space-between">
+                            <el-input v-html="form.title" disabled></el-input>
+                            <el-button style="height: 32px" type="primary" @click="edit('title')">编辑</el-button>
+                        </div>
                     </el-form-item>
                     <el-form-item label="职位地点">
-                        <el-input v-model="form.desc"></el-input>
+                        <div style="display: flex;justify-content: space-between">
+                            <el-input v-html="form.desc" disabled></el-input>
+                            <el-button style="height: 32px" type="primary" @click="edit('desc')">编辑</el-button>
+                        </div>
                     </el-form-item>
                     <el-form-item label="职位描述">
-                        <el-input type="textarea" rows="5" v-model="form.content"></el-input>
+                        <div style="display: flex;justify-content: space-between">
+                            <el-input type="textarea" v-html="form.content" disabled></el-input>
+                            <el-button style="height: 32px" type="primary" @click="edit('content')">编辑</el-button>
+                        </div>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">表单提交</el-button>
@@ -62,8 +71,15 @@ export default {
         PicID(v) {
             this.form.uploadId = v
         },
-        adasd(v) {
-            this.contentData = v;
+        adasd(val) {
+            if (this.formAttr.indexOf('.') !== -1) {
+                const splitArr = this.formAttr.split('.');
+                this.form[splitArr[0]][splitArr[1]][splitArr[2]] = val;
+            } else {
+                this.form[this.formAttr] = val;
+            }
+            this.editVisible = false
+            // this.contentData = info;
         },
         onSubmit() {
             if(this.flag_){
@@ -102,13 +118,17 @@ export default {
             this.proData = ''
         },
         edit(data) {
-            if(data == 'title'){
-                this.contentData = this.form.title;
-            }else{
-                this.contentData = this.form.content;
+            let splitArr;
+            if (data.indexOf('.') !== -1) {
+                splitArr = data.split('.');
+                this.contentData = this.form[splitArr[0]][splitArr[1]][splitArr[2]];
+            } else {
+                this.contentData = this.form[data];
             }
-            this.editVisible = true
+            console.log(splitArr);
+            this.formAttr = data;
             this.proData = data
+            this.editVisible = true
         },
         editTitle(data) {
             this.editVisible = false
