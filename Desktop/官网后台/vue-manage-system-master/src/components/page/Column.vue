@@ -273,15 +273,28 @@
         methods: {
             UpdateSort(){
                 const list = []
+                const that = this
                 this.tableData.forEach((item)=>{
+                    const arr = []
+                    if(item.children.length > 0) {
+                        item.children.forEach((item2)=>{
+                            const Data2 = {
+                                id:item2.id,
+                                sort: +item2.sort
+                            }
+                            arr.push(Data2)
+                        })
+                    }
                     const Data = {
                         id:item.id,
-                        sort:item.sort
+                        sort: +item.sort,
+                        children: arr
                     }
                     list.push(Data)
                 })
                 UpdateSort({list}).then(res => {
                     if(res.code == 0) {
+                        that.getData()
                         this.$message.success(`更新成功`);
                     }else{
                         this.$message.error(`更新失败`);
