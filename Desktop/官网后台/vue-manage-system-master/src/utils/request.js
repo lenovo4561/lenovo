@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { MessageBox, Message } from 'element-ui'
 import router from '../router/index'
-let baseURL = 'http://192.168.124.6:8989/';
+let baseURL = 'http://172.100.200.130:8989/';
 if (process.env.NODE_ENV === 'production') {
     baseURL = 'http://47.107.153.105:8989/';
 }

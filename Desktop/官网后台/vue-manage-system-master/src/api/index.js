@@ -427,6 +427,23 @@ export const addJoinUsModuleTwo = query => {  //添加 加入我们模块二获�
     });
 };
 
+export const addContactusModuleOne = query => {
+    return request({
+        url: `/joinus/module2`,
+        method: 'post',
+        data:query
+    });
+};
+
+export const editContactusModuleOne = query => {
+    return request({
+        url: `/contactus/module1`,
+        method: 'put',
+        data: query
+    });
+};
+
+
 export const editJoinUsModuleTwo = query => {  //加入我们模块二获取
     return request({
         url: `/joinus/module2/${query.id}`,
